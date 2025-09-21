@@ -112,5 +112,3 @@ python -m client.main status <ID_DA_TAREFA_AQUI>
 1. Com o sistema todo em execução, vá ao terminal do Orquestrador Primário (Terminal 1) e pressione Ctrl + C.
 2. Observe o terminal do Orquestrador de Backup (Terminal 2). Após o tempo de timeout, ele detectará a ausência do primário e assumirá o papel principal.
 3. O sistema continuará funcionando. Você pode submeter novas tarefas pelo cliente, que serão gerenciadas pelo novo primário.
-
-```
