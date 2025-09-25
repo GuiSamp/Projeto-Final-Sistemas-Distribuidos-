@@ -62,10 +62,10 @@ class Orchestrator:
         # Cria um socket TCP.
         with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
             # Associa o socket ao endereço e porta definidos em 'config.py'.
-            s.bind((ORCHESTRATOR_BIND_HOST, CLIENT_PORT))
+            s.bind((ORCHESTRATOR_HOST, CLIENT_PORT))
             # Coloca o socket em modo de escuta.
             s.listen()
-            logging.info(f"Ouvindo clientes em {ORCHESTRATOR_BIND_HOST}:{CLIENT_PORT}")
+            logging.info(f"Ouvindo clientes em {ORCHESTRATOR_HOST}:{CLIENT_PORT}")
             # Loop infinito para aceitar novas conexões.
             while True:
                 conn, addr = s.accept()
@@ -176,8 +176,8 @@ class Orchestrator:
     def listen_for_workers(self):
         # Cria um socket UDP, que é mais leve que TCP e ideal para mensagens curtas como heartbeats.
         with socket.socket(socket.AF_INET, socket.SOCK_DGRAM) as s:
-            s.bind((ORCHESTRATOR_BIND_HOST, WORKER_PORT))
-            logging.info(f"Ouvindo workers em {ORCHESTRATOR_BIND_HOST}:{WORKER_PORT} (UDP)")
+            s.bind((ORCHESTRATOR_HOST, WORKER_PORT))
+            logging.info(f"Ouvindo workers em {ORCHESTRATOR_HOST}:{WORKER_PORT} (UDP)")
             while True:
                 # Espera por uma mensagem UDP.
                 data, addr = s.recvfrom(1024)

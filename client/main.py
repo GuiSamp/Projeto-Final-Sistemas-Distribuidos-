@@ -12,7 +12,7 @@ import os
 
 # Importa as configurações de host e porta do arquivo config.py.
 # Isso centraliza as configurações, facilitando a manutenção.
-from config import ORCHESTRATOR_CONNECT_HOST, CLIENT_PORT
+from config import ORCHESTRATOR_HOST, CLIENT_PORT
 
 # Define o nome do arquivo onde o token de autenticação será salvo localmente.
 # Usar um arquivo oculto (começando com '.') é uma convenção comum.
@@ -42,7 +42,7 @@ def send_request(request):
         # Cria um socket TCP/IP.
         with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
             # Conecta-se ao endereço e porta do orquestrador definidos no config.py.
-            s.connect((ORCHESTRATOR_CONNECT_HOST, CLIENT_PORT))
+            s.connect((ORCHESTRATOR_HOST, CLIENT_PORT))
             # Converte o dicionário Python (request) para uma string JSON e a codifica para bytes antes de enviar.
             s.sendall(json.dumps(request).encode('utf-8'))
             # Espera por uma resposta do servidor (até 4096 bytes).

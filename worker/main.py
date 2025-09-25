@@ -10,7 +10,7 @@ import sys  # Para ler argumentos da linha de comando (host e porta do worker).
 # --- Importações do Projeto ---
 # Importa todas as variáveis de configuração (endereços, portas, timeouts, logger).
 # O asterisco (*) importa tudo, mas foi corrigido para importar apenas o necessário nos passos anteriores.
-from config import ORCHESTRATOR_CONNECT_HOST, WORKER_PORT, HEARTBEAT_INTERVAL, logging
+from config import ORCHESTRATOR_HOST, WORKER_PORT, HEARTBEAT_INTERVAL, logging
 
 # Função que simula a execução de uma tarefa.
 def execute_task(task_data):
@@ -28,7 +28,7 @@ def execute_task(task_data):
 # Função que roda em uma thread separada para enviar "sinais de vida" (heartbeats) ao orquestrador.
 def send_heartbeat(worker_id):
     # Define o endereço do orquestrador para onde os heartbeats serão enviados.
-    orchestrator_addr = (ORCHESTRATOR_CONNECT_HOST, WORKER_PORT)
+    orchestrator_addr = (ORCHESTRATOR_HOST, WORKER_PORT)
     # Cria um socket UDP (mais leve que TCP, ideal para mensagens curtas e repetitivas).
     with socket.socket(socket.AF_INET, socket.SOCK_DGRAM) as s:
         # Loop infinito para enviar heartbeats continuamente.
@@ -47,7 +47,7 @@ def send_heartbeat(worker_id):
 # Função para notificar o orquestrador que uma tarefa foi concluída.
 def notify_task_completion(task_id, result):
     # Define o endereço do orquestrador.
-    orchestrator_addr = (ORCHESTRATOR_CONNECT_HOST, WORKER_PORT)
+    orchestrator_addr = (ORCHESTRATOR_HOST, WORKER_PORT)
     # Usa um socket UDP para enviar uma notificação "dispare e esqueça".
     with socket.socket(socket.AF_INET, socket.SOCK_DGRAM) as s:
         # Monta a mensagem de conclusão com o ID da tarefa e seu resultado.
